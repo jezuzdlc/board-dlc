@@ -1,0 +1,87 @@
+.column-container{
+    min-width: 200px;
+    width: 100%;
+    max-width: 500px;
+    min-height: 300px;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border-radius: 20px;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #242423;
+    box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.8);
+}
+
+.title-color{
+    content: " ";
+    width: 4px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.title-new{
+  background-color: rgba(18, 194, 233, 0.813);
+}
+
+.title-process{
+  background-color:yellow ;
+}
+
+.title-completed{
+  background-color: green;
+}
+
+.title-canceled{
+  background-color: red;
+}
+
+.title-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--text-color);
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.card-container{
+    min-width: 200px;   
+    width: 100%;
+    max-width: 500px;
+    min-height: 300px;
+    max-height: 600px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    row-gap: 15px;
+    padding: 10px;
+}
+
+/* Estilo base de la barra */
+.card-container::-webkit-scrollbar {
+  width: 8px; /* ancho vertical */
+  height: 8px; /* alto horizontal */
+}
+
+/* Fondo del scrollbar */
+.card-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* El "thumb", o sea el botón que se mueve */
+.card-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Al pasar el mouse sobre el thumb */
+.card-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

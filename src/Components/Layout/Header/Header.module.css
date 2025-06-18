@@ -1,0 +1,17 @@
+.header{
+    min-width: 275px;
+    width: 100%;
+    max-width: 2500px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+@media (min-width:720px) {
+    .header{
+        flex-direction: row;
+    }
+}
