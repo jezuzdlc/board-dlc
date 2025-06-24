@@ -1,13 +1,11 @@
-import { Column } from "../Components/Column/Column"
-import styles from './CardsPage.module.css'
+import { ColumnContainer } from "../Components/ColumnContainer/ColumnContainer"
 
-export const CardsPage = ()=>{
-    return(
-        <main className={styles.main}>
-            <Column title={'nueva'} tag={'new'}/>
-            <Column title={'en proceso'} tag={'process'}/>
-            <Column title={'completada'} tag={'completed'}/>
-            <Column title={'cancelada'} tag={'canceled'}/>
-        </main>
-    )
+export const CardsPage = () => {
+
+
+  return (
+  <>
+  <ColumnContainer/>
+  </>
+  )
 }

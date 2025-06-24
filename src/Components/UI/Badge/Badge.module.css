@@ -1,15 +1,21 @@
 .badge{
     display: inline-block;
     border-radius: 20px;
-    padding: 2px 4px;
+    min-width: 40px;
+    padding: 4px 10px;
+    height: max-content;
     text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
 }
 
+.badge >p{
+    font-size: 1.2rem;
+}
+
 .low{
-    color: #023e8a;
-    background-color: #48cae4;
+    color: #0028da;
+    background-color: #7d8fe2;
 }
 
 .medium{
@@ -18,6 +24,6 @@
 }
 
 .high{
-    color: #660708;
-    background-color: #da1e37;
+    color: #750101;
+    background-color: #cc4141;
 }

@@ -2,41 +2,63 @@
     min-width: 200px;
     width: 100%;
     max-width: 500px;
-    min-height: 300px;
-    max-height: 600px;
+    height: 80vh;
+    max-height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
     border-radius: 20px;
-    padding: 20px;
-    overflow: hidden;
-    background-color: #242423;
-    box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
+    background-color: var(--secondary-color);
+    border: 2px solid #2b2b2b;
+}
+
+.card-container{
+    min-width: 200px;   
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    row-gap: 15px;
+    overflow-y: auto;
+    height: 80vh;
+    max-height: 80vh;
+    padding: 10px 10px;
 }
 
 .title-color{
     content: " ";
-    width: 4px;
-    height: 24px;
+    width: 10px;
+    height: 10px;
     margin-right: 10px;
-    border-radius: 5px;
+    border-radius: 100%;
+}
+
+.title-text{
+  font-size: 1.4rem;
 }
 
 .title-new{
-  background-color: rgba(18, 194, 233, 0.813);
-}
+  background-color: #0780eb;
+} 
 
 .title-process{
-  background-color:yellow ;
+  background-color:#ffc642 ;
+}
+
+.title-stopped{
+  background-color:#b4b3b3 ;
 }
 
 .title-completed{
-  background-color: green;
+  background-color: #6de15e;
 }
 
 .title-canceled{
-  background-color: red;
+  background-color: #ef476f ;
 }
 
 .title-container{
@@ -45,23 +67,9 @@
     align-items: center;
     color: var(--text-color);
     width: 100%;
-    margin-bottom: 15px;
+    padding: 10px 10px;
 }
 
-.card-container{
-    min-width: 200px;   
-    width: 100%;
-    max-width: 500px;
-    min-height: 300px;
-    max-height: 600px;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    row-gap: 15px;
-    padding: 10px;
-}
 
 /* Estilo base de la barra */
 .card-container::-webkit-scrollbar {

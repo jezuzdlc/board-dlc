@@ -1,11 +1,11 @@
 :root {
-  --primary-color: #a8dadc;
-  --secondary-color: #e63946;
-  --text-color: #f1faee;
+  --primary-color: #0b0b0b;
+  --secondary-color: #161515;
+  --third-color:green;
+  --text-color: #f8f9fa;
   --text-secondary-color:#a8dadc;
-  --bg-color: #111111;
 }
-
+  
 *,
 *:before,
 *:after {
@@ -15,7 +15,7 @@
 }
 
 html {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Roboto", sans-serif;
     box-sizing: border-box;
     font-size: 62.5%;
 }
@@ -26,26 +26,19 @@ img {
 }
 
 body{
-  background-color: var(--bg-color);
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   height: 100%;
 }
 
 a{
   text-decoration: none;
-}
-
+}  
 
 h1{
-  font-size: 2.8rem;
+  font-size: 2rem;
 }
 
 h2{
-  font-size: 2.6rem;
+  font-size: 1.6rem;
 }
-
-
-p{
-  font-size: 1.8rem;
-}
-
