@@ -1,16 +1,17 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { DndContext, DragOverlay ,PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
 import { Column } from "../Column/Column"
-import { initialData, COLUMNS } from "../../utils/constants"
+import { COLUMNS } from "../../utils/constants"
 import { Card } from "../Card/Card"
-import styles from "./ColumnContainer.module.css"
+import { CardsContext } from "../../Context/CardsContext"
 
 
 
-export const ColumnContainer = React.memo(({setActiveForm}) => {
-  const [tasks, setTasks] = useState(initialData)
+export const ColumnContainer = React.memo(() => {
   //active task setted by handleDragStart for DragOverlay 
   const [activeTask, setActiveTask] = useState(null)
+  const {tasks,setTasks} = useContext(CardsContext)
+  
 
 
   const handleDragStart = (event) => {
@@ -49,20 +50,21 @@ export const ColumnContainer = React.memo(({setActiveForm}) => {
     setActiveTask(null)
   }
 
+   //DragOverlay current draggable element 
+   
   return (
-    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <main className={styles.main}>
+    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors} >
+      <>
         {COLUMNS.map((col) => (
           <Column
           key={col.statusId}
           column={col}
-          setActiveForm={setActiveForm}
           tasks={tasks.filter(task => task.statusId === col.statusId)}
           />
         ))}
-      </main>
+      </>
 
-        //current draggable element 
+       
       <DragOverlay>
         {activeTask ? <Card task={activeTask} /> : null}
       </DragOverlay>

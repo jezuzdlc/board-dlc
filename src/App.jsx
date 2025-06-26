@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import { MainLayout } from './pages/MainLayout'
-import { CardsPage } from './pages/CardsPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { FormPage } from './pages/FormPage/FormPage'
+import { CardsPage } from './pages/CardPage/CardsPage'
+import { MainLayout } from './pages/MainLayout/MainLayout'
+import { CardsContextProvider } from './Context/CardsContext'
 
 const queryClient = new QueryClient() 
 
@@ -15,7 +15,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
     <Routes>
       <Route path='/' element={<MainLayout/>}>
-        <Route index element={<CardsPage/>}/>
+        <Route index element={<CardsContextProvider><CardsPage/></CardsContextProvider>}/>
       </Route>
     </Routes>
     </QueryClientProvider>
