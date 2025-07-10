@@ -1,21 +1,49 @@
-import { createContext, useMemo, useState } from "react";
+import { createContext, useMemo, useReducer, useState } from "react";
 import { initialData } from "../utils/constants"; 
 
 export const ValueCardsContext = createContext(null);
 export const SetCardsContext = createContext(null);
 export const CardsContext = createContext(null)
 
+
+const initialState = {
+    isModalOpen:false,
+    activeTask:null,
+    modalMode:"close"
+}
+
+const reducer = (state,action)=>{
+    switch(action.type){
+        case "viewModal":{
+            return{...state,isModalOpen:true,modalMode:"view",activeTask:action.payload}
+        }
+        case "closeModal":{
+            return{...state,isModalOpen:false,activeTask:null,modalMode:"close"}
+        }
+    }
+}
+
 export const CardsContextProvider = ({children})=>{
-    const [activeForm,setActiveForm] = useState(false);
-    const [activeTask,setActiveTask]= useState(null);
+    //const [activeForm,setActiveForm] = useState(false);
+    //const [activeTask,setActiveTask]= useState(null);
+    
+    const [state,dispatch] = useReducer(reducer,initialState)
     const [tasks, setTasks] = useState(initialData)
 
-    const setters = useMemo(()=>{
+
+    /*const setters = useMemo(()=>{
         return{
         setActiveTask,
         setActiveForm,
         }
-    },[])
+    },[])*/
+
+    /*const values = useMemo(()=>{
+        return{
+            activeForm,
+            activeTask
+        }
+    },[activeTask,activeForm])*/
 
     const taskValues = useMemo(()=>{
         return{
@@ -24,17 +52,10 @@ export const CardsContextProvider = ({children})=>{
         }
     },[tasks])
 
-    const values = useMemo(()=>{
-        return{
-            activeForm,
-            activeTask
-        }
-    },[activeTask,activeForm])
-
     return (
         <CardsContext.Provider value={taskValues}>
-        <ValueCardsContext.Provider value={values}>
-        <SetCardsContext.Provider value={setters}>
+        <ValueCardsContext.Provider value={state}>
+        <SetCardsContext.Provider value={dispatch}>
                 {children}
         </SetCardsContext.Provider>
         </ValueCardsContext.Provider>

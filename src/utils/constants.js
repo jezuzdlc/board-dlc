@@ -29,13 +29,15 @@ export const initialData = [
         name:'1 test',
         description:'lorem ipsum ',
         statusId:'new',
+        date:"10/12/24",
         priority:'low'        
     },
     {
         id:2,
         name:'2 test',
-        description:'lorem ipsum data text de ejemplo no se que escribo solo es texto random para el ejemplo',
+        description:'lorem ipsum data text de ejemplo lorem ipsum data text de ejemplo no se que escribo solo es texto random para el ejemplolorem ipsum data text de ejemplo no se que escribo solo es texto random para el ejemplono se que escribo solo es texto random para el ejemplo lorem ipsum data text de ejemplo no se que escribo solo es texto random para el ejemplo',
         statusId:'process',
+        date:"10/12/24",
         priority:'low'        
     },
     {
@@ -43,6 +45,7 @@ export const initialData = [
         name:'3 test',
         description:'lorem ipsum data text de ejemplo no se que escribo solo es texto random para el ejemplo',
         statusId:'completed',
+        date:"10/12/24",
         priority:'high'        
     },
     {
@@ -50,6 +53,7 @@ export const initialData = [
         name:'4 test',
         description:'lorem ipsum data text de ejemplo no se que escribo solo es texto random para el ejemplo',
         statusId:'stopped',
+        date:"10/12/24",
         priority:'high'        
     },
     {
@@ -57,6 +61,7 @@ export const initialData = [
         name:'5 test',
         description:'lorem ipsum data text de ejemplo no se que escribo solo es texto random para el ejemplo',
         statusId:'canceled',
+        date:"10/12/24",
         priority:'medium'        
     },
     {
@@ -64,6 +69,7 @@ export const initialData = [
         name:'6 test',
         description:'lorem ipsum data text de ejemplo no se que escribo solo es texto random para el ejemplo',
         statusId:'canceled',
+        date:"10/12/24",
         priority:'medium'        
     },
 

@@ -1,0 +1,38 @@
+.info-container{
+    padding-right: 5px;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.buttons-container{
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 10px;
+    height: 20%;
+}
+
+
+/* Estilo base de la barra */
+.info-container::-webkit-scrollbar {
+  width: 8px; /* ancho vertical */
+  height: 8px; /* alto horizontal */
+}
+
+/* Fondo del scrollbar */
+.info-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* El "thumb", o sea el botón que se mueve */
+.info-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Al pasar el mouse sobre el thumb */
+.info-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+

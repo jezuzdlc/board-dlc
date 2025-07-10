@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { SetCardsContext, ValueCardsContext } from "../../Context/CardsContext";
 
-export const FormCard = () => {
-  const {setActiveForm} = useContext(SetCardsContext);
-  const {activeTask} = useContext(ValueCardsContext);
-  console.log(activeTask);
+export const Form = () => {
+  const dispatch = useContext(SetCardsContext);
+  const state = useContext(ValueCardsContext);
 
   const handleCloseForm = () => {
-    setActiveForm(false);
+    //setActiveForm(false);
+    dispatch({type:"closeModal"})
   };
 
   return (
@@ -27,11 +27,11 @@ export const FormCard = () => {
         <section className={styles.detail}>
           <div className={styles["input-container"]}>
             <label htmlFor="">titulo:</label>
-            <input type="text" />
+            <input type="text" placeholder="enter title"/>
           </div>
           <div className={styles["input-container"]}>
             <label htmlFor="">descripcion:</label>
-            <input type="text" />
+            <textarea placeholder="enter description" rows={3}/>
           </div>
           <div className={styles["input-container"]}>
             <label htmlFor="">fecha:</label>

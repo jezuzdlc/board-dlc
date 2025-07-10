@@ -18,3 +18,12 @@
 .main-nav > a:hover{
     color: var(--text-secondary-color);
 }
+
+.input{
+    width: 220px;
+    padding: 6px;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    border: 2px solid #2b2b2b;
+    border-radius: 5px;
+}

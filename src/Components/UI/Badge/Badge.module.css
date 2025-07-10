@@ -14,16 +14,16 @@
 }
 
 .low{
-    color: #0028da;
-    background-color: #7d8fe2;
+    color: #805b10;
+    background-color: #ffff00;
 }
 
 .medium{
-    color: #805b10;
-    background-color: #ffea00;
+    color: #5c2f03;
+    background-color: #d76926;
 }
 
 .high{
-    color: #750101;
-    background-color: #cc4141;
+    color: #540202;
+    background-color: #eb1919;
 }

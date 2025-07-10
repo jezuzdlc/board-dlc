@@ -1,0 +1,19 @@
+.button{
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    width: 100px;
+    max-width: 130px;
+    padding: 6px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: .3s ease-in-out all;
+}
+
+.button:hover{
+    background-color: white;
+    color: black;
+}

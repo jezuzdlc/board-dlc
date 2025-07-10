@@ -1,16 +1,24 @@
 import { useContext } from "react"
 import { ColumnContainer } from "../../Components/ColumnContainer/ColumnContainer"
-import { FormCard } from "../../Components/Form/FormCard"
 import styles from './CardsPage.module.css'
 import { ValueCardsContext } from "../../Context/CardsContext"
+import { Modal } from "../../Components/Modal/Modal"
+import { Overlay } from "../../Components/Overlay/Overlay"
+import { Info } from "../../Components/Info/Info"
 
 export const CardsPage = () => {
-  const {activeForm} = useContext(ValueCardsContext)
+  const state = useContext(ValueCardsContext)
 
   return (
-  <main className={styles.main}>
-  <ColumnContainer />
-  {activeForm && (<FormCard/>)}
-  </main>
+    <>
+      {state.isModalOpen && (
+        <Overlay>
+          <Modal>{state.modalMode=='view' && <Info/>}</Modal>
+        </Overlay>
+        )}
+      <main className={styles.main}>
+        <ColumnContainer />
+      </main>
+    </>
   )
 }

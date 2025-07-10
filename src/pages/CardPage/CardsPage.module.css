@@ -10,7 +10,6 @@
   align-items: center;
   gap: 40px;
   height: 90vh;
-  position: relative;
 }
 
 @media (min-width:1200px) {
