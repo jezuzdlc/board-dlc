@@ -1,10 +1,11 @@
 import styles from "./Modal.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { SetCardsContext } from "../../Context/CardsContext";
 import { Info } from "../Info/Info";
 import { Button } from "../Layout/Button/Button";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useKey } from "../../hooks/useKey";
 
 export const Modal = ({children}) => {
   const dispatch = useContext(SetCardsContext);
@@ -13,6 +14,12 @@ export const Modal = ({children}) => {
     //setActiveForm(false);
     dispatch({type:"closeModal"})
   };
+
+  const handleEscPress = useCallback(()=>{
+    dispatch({type:"closeModal"})
+  },[dispatch])
+
+  useKey('Escape',handleEscPress)
 
   return (
     <div className={styles["modal-container"]}>
