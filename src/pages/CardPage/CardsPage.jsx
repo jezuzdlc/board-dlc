@@ -5,6 +5,7 @@ import { ValueCardsContext } from "../../Context/CardsContext"
 import { Modal } from "../../Components/Modal/Modal"
 import { Overlay } from "../../Components/Overlay/Overlay"
 import { Info } from "../../Components/Info/Info"
+import { Form } from "react-router-dom"
 
 export const CardsPage = () => {
   const state = useContext(ValueCardsContext)
@@ -13,12 +14,16 @@ export const CardsPage = () => {
     <>
       {state.isModalOpen && (
         <Overlay>
-          <Modal>{state.modalMode=='view' && <Info/>}</Modal>
+          <Modal>
+            {state.modalMode=='view' && <Info/>}
+            {state.modalMode=='create' && <Form/>}
+            {state.modalMode=='edit' && <Info/>}
+          </Modal>
         </Overlay>
         )}
-      <main className={styles.main}>
+      <div className={styles.main}>
         <ColumnContainer />
-      </main>
+      </div>
     </>
   )
 }

@@ -1,20 +1,4 @@
 .main{
-  min-width: 275px;
-  width: 100%;
-  max-width: 2500px;
-  margin: 0 auto;
-  padding: 20px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 40px;
-  height: 90vh;
-}
-
-@media (min-width:1200px) {
-  .main{
-    flex-direction: row;
-    align-items: start;
-  }
+  flex-direction: row;
 }

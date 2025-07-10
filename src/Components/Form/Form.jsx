@@ -1,27 +1,9 @@
-import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import styles from "./FormCard.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { SetCardsContext, ValueCardsContext } from "../../Context/CardsContext";
-
 export const Form = () => {
-  const dispatch = useContext(SetCardsContext);
-  const state = useContext(ValueCardsContext);
-
-  const handleCloseForm = () => {
-    //setActiveForm(false);
-    dispatch({type:"closeModal"})
-  };
+ 
 
   return (
     <div className={styles["form-container"]}>
-      
-      <div className={styles.header}>
-        <h2>Información de la tarjeta</h2>
-        <div className={styles.close} onClick={handleCloseForm}>
-          <FontAwesomeIcon icon={faCircleXmark} size="2x" />
-        </div>
-      </div>
 
       <form action="" className={styles.form}>
         <section className={styles.detail}>

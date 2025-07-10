@@ -35,18 +35,6 @@
 }
 
 
-.close{
-    cursor: pointer;
-}
-
-.header{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #2b2b2b;
-}
-
 .form{
     display: flex;
     height: 100%;

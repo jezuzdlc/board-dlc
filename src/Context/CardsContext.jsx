@@ -17,6 +17,9 @@ const reducer = (state,action)=>{
         case "viewModal":{
             return{...state,isModalOpen:true,modalMode:"view",activeTask:action.payload}
         }
+        case "createModal":{
+            return {...state,isModalOpen:true,modalMode:"create"}
+        }
         case "closeModal":{
             return{...state,isModalOpen:false,activeTask:null,modalMode:"close"}
         }
