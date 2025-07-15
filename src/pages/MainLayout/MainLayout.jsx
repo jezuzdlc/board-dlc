@@ -3,8 +3,7 @@ import { Title } from "../../Components/Layout/Title/Title";
 import { Nav } from "../../Components/Layout/Nav/Nav";
 import { Header } from "../../Components/Layout/Header/Header";
 import styles from './MainLayout.module.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faListCheck, faTable } from "@fortawesome/free-solid-svg-icons";
+import { Sidebar } from "../../Components/Sidebar/Sidebar";
 
 export const MainLayout = () => {
   return (
@@ -14,10 +13,7 @@ export const MainLayout = () => {
         <Nav />
       </Header>
       <main className={styles.main}>
-        <nav className={styles.nav}>
-          <FontAwesomeIcon icon={faListCheck}/>
-          <FontAwesomeIcon icon={faTable}/>
-        </nav>
+      <Sidebar/>
       <Outlet />
       </main>
     </>

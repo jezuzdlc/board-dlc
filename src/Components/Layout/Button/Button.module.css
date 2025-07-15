@@ -1,9 +1,7 @@
 .button{
-    display: flex;
-    justify-content: space-between;
-    align-self: flex-end;
     width: 100px;
     max-width: 130px;
+    height: 35px;
     padding: 6px;
     background-color: transparent;
     border: 2px solid white;

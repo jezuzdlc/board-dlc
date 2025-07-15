@@ -1,11 +1,9 @@
 .main-nav{
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     gap:10px;
-    padding: 5px;
-    margin-top: 10px;
 }
 
 .main-nav > a{
@@ -21,6 +19,7 @@
 
 .input{
     width: 220px;
+    height: 35px;
     padding: 6px;
     color: var(--text-color);
     background-color: var(--secondary-color);

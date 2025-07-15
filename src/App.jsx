@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { CardsPage } from './pages/CardPage/CardsPage'
 import { MainLayout } from './pages/MainLayout/MainLayout'
 import { CardsContextProvider } from './Context/CardsContext'
+import { BoardPage } from './pages/BoardPage/BoardPage'
 
 const queryClient = new QueryClient() 
 
@@ -16,6 +17,9 @@ function App() {
     <Routes>
       <Route path='/' element={<MainLayout/>}>
         <Route index element={<CardsContextProvider><CardsPage/></CardsContextProvider>}/>
+      </Route>
+      <Route path='/board' element={<MainLayout/>}>
+        <Route index element={<BoardPage/>}/>
       </Route>
     </Routes>
     </QueryClientProvider>
