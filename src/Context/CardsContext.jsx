@@ -11,7 +11,7 @@ const initialState = {
     activeTask:null,
     modalMode:"close"
 }
-
+//TODO: cambiar cases igual al modalMode
 const reducer = (state,action)=>{
     switch(action.type){
         case "viewModal":{

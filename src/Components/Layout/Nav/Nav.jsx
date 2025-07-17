@@ -32,8 +32,10 @@ export const Nav = ()=>{
     useKey('Escape',handleExitSearch)
     useKey('KeyK',handleKeyPress,true)
 
-    const handleClick = ()=>{
-        dispatch({type:"viewModal"})
+    const handleClick = (e)=>{
+        console.log('holi');
+        e.preventDefault()
+        dispatch({type:"createModal"})
     } 
 
     return(

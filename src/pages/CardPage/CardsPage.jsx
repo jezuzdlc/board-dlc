@@ -5,7 +5,8 @@ import { ValueCardsContext } from "../../Context/CardsContext"
 import { Modal } from "../../Components/Modal/Modal"
 import { Overlay } from "../../Components/Overlay/Overlay"
 import { Info } from "../../Components/Info/Info"
-import { Form } from "react-router-dom"
+import { Form } from "../../Components/Form/Form"
+
 
 export const CardsPage = () => {
   const state = useContext(ValueCardsContext)

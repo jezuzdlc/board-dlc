@@ -15,8 +15,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
     <Routes>
-      <Route path='/' element={<MainLayout/>}>
-        <Route index element={<CardsContextProvider><CardsPage/></CardsContextProvider>}/>
+      <Route path='/' element={<CardsContextProvider><MainLayout/></CardsContextProvider>}>
+        <Route index element={<CardsPage/>}/>
       </Route>
       <Route path='/board' element={<MainLayout/>}>
         <Route index element={<BoardPage/>}/>
