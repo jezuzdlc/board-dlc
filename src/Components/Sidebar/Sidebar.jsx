@@ -3,10 +3,10 @@ import styles from './Sidebar.module.css'
 import { faListCheck, faTable } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
 
-export const Sidebar = ()=>{
+export const Sidebar = ({isOpen})=>{
     return(
         <>
-        <nav className={styles.nav}>
+        <nav className={`${styles.nav} ${isOpen? styles.open:""}`}>
             
             <NavLink to="/board" className={({isActive})=> isActive?styles.active:styles.linked}>
                 <div className={styles.link}>
