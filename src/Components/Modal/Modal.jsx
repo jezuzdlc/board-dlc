@@ -2,8 +2,6 @@ import styles from "./Modal.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useContext } from "react";
 import { SetCardsContext, ValueCardsContext } from "../../Context/CardsContext";
-import { Info } from "../Info/Info";
-import { Button } from "../Layout/Button/Button";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useKey } from "../../hooks/useKey";
 

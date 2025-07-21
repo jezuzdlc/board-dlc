@@ -1,14 +1,18 @@
-import { Button } from "../Layout/Button/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "../Button/Button";
 import styles from "./Form.module.css";
 import { useForm } from "react-hook-form";
+import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
 
 export const Form = () => {
  
-  const {register} = useForm()
+  const {register,handleSubmit} = useForm()
 
   return (
 
-      <form action="" className={styles.form}>
+      <form action="" className={styles.form} onSubmit={handleSubmit(()=>{
+        console.log('hola');
+      })}>
         <section className={styles.detail}>
           <div className={styles["input-container"]}>
             <label htmlFor="">titulo:</label>
@@ -33,8 +37,7 @@ export const Form = () => {
         </section>
         
         <section className={styles["buttons-container"]}>
-          <Button type={"button"} text={"Cancelar"}></Button>
-          <Button type={"submit"} text={"Guardar"}></Button>
+          <Button type={"submit"} text={"Guardar"}><FontAwesomeIcon icon={faFloppyDisk}/></Button>
         </section>
       </form>
   );

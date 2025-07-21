@@ -1,5 +1,5 @@
 import { useDraggable } from "@dnd-kit/core"
-import { Badge } from "../UI/Badge/Badge"
+import { Badge } from "../Badge/Badge"
 import styles from "./Card.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faFlag} from "@fortawesome/free-regular-svg-icons"

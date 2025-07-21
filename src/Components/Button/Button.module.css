@@ -1,0 +1,15 @@
+.button{
+    height: 35px;
+    padding: 6px;
+    border: 2px solid var(--element-border-color);
+    border-radius: 5px;
+    color: var(--text-secondary-color);
+    cursor: pointer;
+    transition: .3s ease-in-out all;
+    background-color: var(--element-background-color);
+}
+
+.button:hover{
+    border-color: var(--element-hover-color);
+    color: var(--element-hover-color);
+}

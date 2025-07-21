@@ -1,10 +1,10 @@
 import styles from './Nav.module.css'
 import { useCallback, useContext, useRef, useState } from 'react'
-import {Button} from '../Button/Button'
+import {Button} from '../../Components/Button/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useKey } from '../../../hooks/useKey'
-import { SetCardsContext } from '../../../Context/CardsContext'
+import { useKey } from '../../hooks/useKey'
+import { SetCardsContext } from '../../Context/CardsContext'
 
 export const Nav = ()=>{
 
@@ -33,7 +33,6 @@ export const Nav = ()=>{
     useKey('KeyK',handleKeyPress,true)
 
     const handleClick = (e)=>{
-        console.log('holi');
         e.preventDefault()
         dispatch({type:"createModal"})
     } 

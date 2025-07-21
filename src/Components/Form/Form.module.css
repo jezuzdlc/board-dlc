@@ -3,15 +3,14 @@
     flex-direction: column;
     gap: 10px;
     margin: 20px 0;
-    font-size: 1.4rem;
 }
 
-.input-container > input, .input-container > select{
+.input-container > input, .input-container > select,.input-container > textarea{
     padding: 7px 5px;
     border-radius: 10px;
-    border: 2px solid #2b2b2b;
-    color: white;
-    background-color: #2b2b2b;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    background-color: var(--border-color);
 }
 
 
@@ -20,14 +19,39 @@
     height: 100%;
     flex-direction: column;
     justify-content: space-between;
-    padding: 5px;
+    font-size: 1.4rem;
 }
 
 .detail{
     height: 90%;
     overflow-y: auto;
     overflow-x: hidden;
+    padding-right: 5px;
 }
+
+/* Estilo base de la barra */
+.detail::-webkit-scrollbar {
+  width: 8px; /* ancho vertical */
+  height: 8px; /* alto horizontal */
+}
+
+/* Fondo del scrollbar */
+.detail::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* El "thumb", o sea el botón que se mueve */
+.detail::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Al pasar el mouse sobre el thumb */
+.detail::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 
 .buttons-container{
     height: 10%;
@@ -36,13 +60,5 @@
     justify-content: flex-end;
     column-gap: 20px;
     padding-top: 10px;
-    border-top: 2px solid #2b2b2b;
-}
-
-
-.button{
-    border-radius:10px;
-    padding: 10px 10px;
-    border: none;
-    background-color: whitesmoke;
+    border-top: 2px solid var(--border-color);
 }

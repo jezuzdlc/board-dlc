@@ -7,8 +7,8 @@
   gap: 10px;
   width: 100%;
   height: 50%;
-  border-right: 1px solid #2b2b2b;
-  border-top: 1px solid #2b2b2b;
+  border-right: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
   background-color: var(--primary-color);
   z-index: 100;
   transition: .2s ease-in-out all;
@@ -24,22 +24,21 @@
     display: block;
     width: 100%;
     cursor: pointer;
-    color: var(--text-color);
 }
 
 .linked:visited{
-    color: rgb(72, 72, 72);
+    color: var(--border-color);
 }
 
 .active{
     display: block;
     width: 100%;
     cursor: pointer;
-    color: rgb(72, 72, 72);
+    color: var(--text-color-muted);
 }
 
 .active:visted{
-    color: rgb(72, 72, 72);
+    color: var(--text-color-muted);
 }
 
 .icon{
@@ -49,7 +48,7 @@
 
 .active {
     border-radius: 5px;
-    background-color: rgb(72, 72, 72);
+    background-color: var(--element-background-color);
     color: var(--text-color);
 }
 
@@ -69,12 +68,12 @@
 }
 
 .link:hover{
-    background-color: rgb(72, 72, 72);
+    background-color: var(--element-background-color);
     color: var(--text-color);
 }
 
 .nav:hover .active .link{
-    background-color:rgb(72, 72, 72) ;
+    background-color:var(--element-background-color);
     color: var(--text-color);
 }
 
@@ -87,6 +86,7 @@
         width: 50px;
         height: 100%;
         bottom: auto;
+        border-top: none;
     }
 
     .nav:hover{
@@ -102,7 +102,6 @@
     }
 
     .active .icon{
-    background-color: rgb(72, 72, 72);
     color: var(--text-color);
     }
 

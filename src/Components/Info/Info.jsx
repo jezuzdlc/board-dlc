@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { ValueCardsContext } from "../../Context/CardsContext"
 import {formatDate} from "../../utils/functions"
-import { Detail } from "../Layout/Detail/Detail"
-import { Badge } from "../UI/Badge/Badge"
-import { Button } from "../Layout/Button/Button"
+import { Detail } from "../Detail/Detail"
+import { Badge } from "../Badge/Badge"
+import { Button } from "../Button/Button"
 import styles from './Info.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons"

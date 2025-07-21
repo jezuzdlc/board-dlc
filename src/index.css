@@ -1,9 +1,16 @@
 :root {
   --primary-color: #0b0b0b;
   --secondary-color: #161515;
-  --third-color:#495057;
+
+  --element-border-color:#9be1ed;
+  --element-hover-color:#3fd0ea;
+  --element-background-color:#0b4e5d;
+  
+  --border-color:#2b2b2b;
+
   --text-color: #f8f9fa;
-  --text-secondary-color:#a8dadc;
+  --text-secondary-color:#9be1ed;
+  --text-color-muted:rgb(72, 72, 72);
 }
   
 *,
