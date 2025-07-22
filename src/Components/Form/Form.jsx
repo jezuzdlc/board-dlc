@@ -8,15 +8,17 @@ export const Form = () => {
  
   const {register,handleSubmit} = useForm()
 
+  const onSubmit = handleSubmit((data)=>{
+    console.log(data);
+  })
+
   return (
 
-      <form action="" className={styles.form} onSubmit={handleSubmit(()=>{
-        console.log('hola');
-      })}>
+      <form action="" className={styles.form} onSubmit={onSubmit}>
         <section className={styles.detail}>
           <div className={styles["input-container"]}>
             <label htmlFor="">titulo:</label>
-            <input type="text" placeholder="enter title" {...register("title")}/>
+            <input type="text" placeholder="enter title" {...register("title",{required:true})}/>
           </div>
           <div className={styles["input-container"]}>
             <label htmlFor="">descripcion:</label>

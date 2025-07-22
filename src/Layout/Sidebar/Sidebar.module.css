@@ -1,52 +1,36 @@
-.nav{
+.sidebar{
   position: fixed;
+  bottom: -50%;
   display: flex;
   flex-direction: column;
   align-items: start;
-  padding: 10px;
-  gap: 10px;
   width: 100%;
   height: 50%;
+  padding: 10px;
+  gap: 10px;
   border-right: 1px solid var(--border-color);
   border-top: 1px solid var(--border-color);
-  background-color: var(--primary-color);
   z-index: 100;
-  transition: .2s ease-in-out all;
   overflow: hidden;
-  bottom: -50%;
+  background-color: var(--primary-color);
+  transition: .2s ease-in-out all;
 }
 
 .open{
     bottom: 0;
 }
 
-.linked{
-    display: block;
+.navlink{
     width: 100%;
     cursor: pointer;
 }
 
-.linked:visited{
-    color: var(--border-color);
+.inactive{
+    color: rgb(164, 164, 164);
 }
+
 
 .active{
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    color: var(--text-color-muted);
-}
-
-.active:visted{
-    color: var(--text-color-muted);
-}
-
-.icon{
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.active {
     border-radius: 5px;
     background-color: var(--element-background-color);
     color: var(--text-color);
@@ -61,50 +45,38 @@
     border-radius: 5px;
 }
 
-.label{
-    padding: 5px;
-    display: block;
-    font-size: 1.4rem;
-}
-
 .link:hover{
     background-color: var(--element-background-color);
     color: var(--text-color);
 }
 
-.nav:hover .active .link{
+.sidebar:hover .active .link{
     background-color:var(--element-background-color);
-    color: var(--text-color);
 }
 
+.icon{
+    padding: 5px;
+    border-radius: 5px;
+}
 
+.label{
+    padding: 5px;
+    font-size: 1.4rem;
+}
 
 
 @media (min-width:720px) {
   
-    .nav{
+    .sidebar{
         width: 50px;
         height: 100%;
         bottom: auto;
         border-top: none;
     }
 
-    .nav:hover{
+    .sidebar:hover{
         width: 200px;
     }
-
-    .nav:hover .label{
-        display: block;
-    }
-
-    .label{
-        display: none;
-    }
-
-    .active .icon{
-    color: var(--text-color);
-    }
-
 
 }
 
