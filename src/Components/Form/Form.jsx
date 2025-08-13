@@ -3,39 +3,68 @@ import { Button } from "../Button/Button";
 import styles from "./Form.module.css";
 import { useForm } from "react-hook-form";
 import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
+import { FormErrorMessage } from "../FormErrorMessage/FormErrorMessage";
+import { Input } from "../Input/Input";
+import { FormWrapper } from "../FormWrapper/FormWrapper";
+import { TextArea } from "../TextArea/TextArea";
+import { Select } from "../Select/Select";
 
 export const Form = () => {
  
-  const {register,handleSubmit} = useForm()
+  const {register,handleSubmit,formState:{errors},watch} = useForm()
+
+  const options =[
+    {name:'low',value:'low'},
+    {name:'medium',value:'medium'},
+    {name:'high',value:'high'}
+  ]
 
   const onSubmit = handleSubmit((data)=>{
     console.log(data);
   })
 
+  const validateDate = (value)=>{
+      const [year,month,day] = value.split("-").map(Number)
+      const date = new Date(year,month-1,day);
+      const actualDate = new Date()
+      actualDate.setHours(0,0,0,0)
+      if(date<actualDate){
+        console.log(date);
+        console.log(actualDate);
+        return "La fecha no puede ser anterior a hoy."
+      }
+      return true
+  }
+
+
   return (
 
+    
       <form action="" className={styles.form} onSubmit={onSubmit}>
         <section className={styles.detail}>
-          <div className={styles["input-container"]}>
-            <label htmlFor="">titulo:</label>
-            <input type="text" placeholder="enter title" {...register("title",{required:true})}/>
-          </div>
-          <div className={styles["input-container"]}>
-            <label htmlFor="">descripcion:</label>
-            <textarea placeholder="enter description" rows={3} {...register("description")}/>
-          </div>
-          <div className={styles["input-container"]}>
-            <label htmlFor="">fecha:</label>
-            <input type="date" {...register("date")}/>
-          </div>
-        <div className={styles["input-container"]}>
-            <label htmlFor="">Priority:</label>
-            <select name="priority" id="priority" {...register("priority")}>
-                <option id="priority" value="low">low</option>
-                <option id="priority" value="medium">medium</option>
-                <option id="priority" value="high">high</option>
-            </select>
-          </div>
+
+          {console.log(watch())}
+          <FormWrapper>
+            <Input isRequired={true} element={'title'} register={register} setMinLength={2} setMaxLength={100} label={"Titulo"} type={"text"}/>
+            {errors.title && <FormErrorMessage error={errors.title.message}/>}
+          </FormWrapper>
+
+          <FormWrapper>
+            <TextArea register={register} element={'description'} setMaxLength={1000} label={'Descripción'}   />
+            {errors.description && <FormErrorMessage error={errors.description.message}/>}
+          </FormWrapper>
+
+          <FormWrapper>
+            <Input isRequired={true} label={'Fecha de entrega'} type={'date'} element={'date'} register={register} isDate={true} validate={validateDate}/>
+            {errors.date && <FormErrorMessage error={errors.date.message}/>}
+          </FormWrapper>
+
+          <FormWrapper>
+            <Select register={register} label={'Prioridad'} isRequired={true} element={'priority'} options={options}/>
+            {errors.priority && <FormErrorMessage error={errors.priority.message}/>}
+          </FormWrapper>
+          {console.log(errors)}
+
         </section>
         
         <section className={styles["buttons-container"]}>

@@ -18,7 +18,7 @@ export const Column = React.memo(({ column, tasks}) => {
       
       <div className={styles["title-container"]}>
         <div className={`${styles["title-color"]} ${styles[tagLower]}`}></div>
-        <h3 className={styles["title-text"]}>{column.name}</h3>
+        <h2 className={styles["title-text"]}>{column.name}</h2>
       </div>
 
       <div ref={setNodeRef} className={styles["card-container"]}>

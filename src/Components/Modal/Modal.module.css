@@ -3,10 +3,11 @@
     flex-direction: column;
     min-width: 260px;
     width: 100%;
-    max-width: 500px;
-    height: 360px;
+    max-width: 700px;
+    height: 500px;
     padding: 20px;
     border: 2px solid var(--border-color);
+    margin: 10px;
     border-radius: 20px;
     box-shadow: 0px 0px 60px 20px rgba(0, 0, 0, 0.8);
     background-color: var(--secondary-color);
@@ -20,9 +21,7 @@
     min-width: 260px;
     width: 100%;
     max-width: 500px;
-    min-height: 360px;
-    height: 100%;
-    max-height: 500px;
+    height: 530px;
     padding: 20px;
     border: 2px solid var(--border-color);
     border-radius: 20px;
@@ -30,10 +29,8 @@
     background-color: var(--secondary-color);
     color: var(--text-color);
     z-index: 1000;
+    margin: 10px;
 }
-
-
-
 
 
 .close{
@@ -51,7 +48,6 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;
-    font-size: 1.4rem;
     border-bottom: 2px solid var(--border-color);
     height: 10%;
 }
