@@ -6,21 +6,23 @@ import {faFlag} from "@fortawesome/free-regular-svg-icons"
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons"
 import { useContext } from "react"
 import { SetCardsContext } from "../../Context/CardsContext"
+import { formatedCardDate } from "../../utils/functions"
 
-export const Card = ({ task }) => {
+export const Card = ({ task,isDragging}) => {
 
   const dispatch = useContext(SetCardsContext)
 
   const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({
     id: task.id,
     data:{
-      statusId:task.statusId
+      statusId:task.status.name
     }
   })
 
   const style = {
     transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined,
-    transition
+    transition,
+    opacity:isDragging?0:1,
   }
 
   const handleSetForm = ()=>{
@@ -40,6 +42,7 @@ export const Card = ({ task }) => {
       {...listeners}
       className={styles.card}
     >
+
       <div className={styles["title-container"]}>
         <h3 className={styles.title}>{task.name}</h3>
         <div className={styles.detail} onClick={handleSetForm}>
@@ -51,9 +54,9 @@ export const Card = ({ task }) => {
       <div className={styles["info-container"]}>
         <div className={styles["date-container"]}>
           <FontAwesomeIcon icon={faFlag} size="xl"/>
-          <p className={styles.date}>{task.date}</p>
+          <p className={styles.date}>{formatedCardDate(task.date)}</p>
         </div>
-        <Badge type={task.priority} />
+        <Badge type={task.priority.name} />
       </div>
    
     </div>

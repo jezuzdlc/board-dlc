@@ -1,7 +1,10 @@
 
 export const formatDate = (fechaStr)=>{
+    const formatted = new Date(fechaStr).toLocaleDateString("es-MX", {
+        timeZone: "America/Mexico_City",
+    });
     // 1. Separar la fecha
-    const [dia, mes, anio] = fechaStr.split("/");
+    const [dia, mes, anio] = formatted.split("/");
     
     // 2. Crear el objeto Date (ojo: los meses en JS van de 0 a 11)
     const fecha = new Date(anio, mes - 1, dia);
@@ -14,4 +17,11 @@ export const formatDate = (fechaStr)=>{
     });
     
     return formateador.format(fecha);
+}
+
+
+export const formatedCardDate = (fecha)=>{
+    return new Date(fecha).toLocaleDateString("es-MX", {
+  timeZone: "America/Mexico_City",
+});
 }

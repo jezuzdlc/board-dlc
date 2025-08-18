@@ -1,9 +1,7 @@
-import { createContext, useMemo, useReducer, useState } from "react";
-import { initialData } from "../utils/constants"; 
+import { createContext, useReducer } from "react";
 
 export const ValueCardsContext = createContext(null);
 export const SetCardsContext = createContext(null);
-export const CardsContext = createContext(null)
 
 
 const initialState = {
@@ -27,41 +25,15 @@ const reducer = (state,action)=>{
 }
 
 export const CardsContextProvider = ({children})=>{
-    //const [activeForm,setActiveForm] = useState(false);
-    //const [activeTask,setActiveTask]= useState(null);
     
     const [state,dispatch] = useReducer(reducer,initialState)
-    const [tasks, setTasks] = useState(initialData)
 
-
-    /*const setters = useMemo(()=>{
-        return{
-        setActiveTask,
-        setActiveForm,
-        }
-    },[])*/
-
-    /*const values = useMemo(()=>{
-        return{
-            activeForm,
-            activeTask
-        }
-    },[activeTask,activeForm])*/
-
-    const taskValues = useMemo(()=>{
-        return{
-        tasks,
-        setTasks
-        }
-    },[tasks])
 
     return (
-        <CardsContext.Provider value={taskValues}>
         <ValueCardsContext.Provider value={state}>
         <SetCardsContext.Provider value={dispatch}>
                 {children}
         </SetCardsContext.Provider>
         </ValueCardsContext.Provider>
-        </CardsContext.Provider>
     )
 }

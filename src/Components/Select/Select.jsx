@@ -10,8 +10,8 @@ export const Select = ({register,label,element,isRequired=false,options})=>{
                 message:`El campo ${label} es requerido`
                 }:false,
         })}>
-            {options.map((option)=>(
-                <option key={option.value} id={element} value={option.value}>{option.name}</option>
+            {options?.map((option)=>(
+                <option key={option.id} id={element} value={option.id}>{option.name}</option>
             ))}
         </select>
         </>

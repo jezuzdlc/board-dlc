@@ -12,6 +12,7 @@
 @media (min-width:720px) {
   .main{
     margin-top: 50px;
+    height: 94vh;
   }
 
   .button{

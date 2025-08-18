@@ -18,7 +18,7 @@ export const Info = ()=>{
                 <Detail title={"Titulo"} value={activeTask.name}/>
                 <Detail title={"Descripción"} value={activeTask.description}/>
                 <Detail title={"fecha"} value={formatDate(activeTask.date)}/>
-                <Detail title={"prioridad"}> <Badge type={activeTask.priority}/></Detail>
+                <Detail title={"prioridad"}> <Badge type={activeTask.priority.name}/></Detail>
             </div>
             <div className={styles["buttons-container"]}>
                 <Button text={"Eliminar"}><FontAwesomeIcon icon={faTrash}/> </Button>

@@ -8,19 +8,22 @@ import { Input } from "../Input/Input";
 import { FormWrapper } from "../FormWrapper/FormWrapper";
 import { TextArea } from "../TextArea/TextArea";
 import { Select } from "../Select/Select";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPriorities } from "../../api/priority";
 
 export const Form = () => {
  
-  const {register,handleSubmit,formState:{errors},watch} = useForm()
+  const {register,handleSubmit,formState:{errors}} = useForm()
 
-  const options =[
-    {name:'low',value:'low'},
-    {name:'medium',value:'medium'},
-    {name:'high',value:'high'}
-  ]
+  const {data:priorities}= useQuery({
+    queryFn:()=>fetchPriorities(),
+    queryKey:['priorities']
+  })
 
+  console.log(priorities);
   const onSubmit = handleSubmit((data)=>{
     console.log(data);
+    prompt('se envio la data')
   })
 
   const validateDate = (value)=>{
@@ -29,8 +32,6 @@ export const Form = () => {
       const actualDate = new Date()
       actualDate.setHours(0,0,0,0)
       if(date<actualDate){
-        console.log(date);
-        console.log(actualDate);
         return "La fecha no puede ser anterior a hoy."
       }
       return true
@@ -43,7 +44,6 @@ export const Form = () => {
       <form action="" className={styles.form} onSubmit={onSubmit}>
         <section className={styles.detail}>
 
-          {console.log(watch())}
           <FormWrapper>
             <Input isRequired={true} element={'title'} register={register} setMinLength={2} setMaxLength={100} label={"Titulo"} type={"text"}/>
             {errors.title && <FormErrorMessage error={errors.title.message}/>}
@@ -60,10 +60,9 @@ export const Form = () => {
           </FormWrapper>
 
           <FormWrapper>
-            <Select register={register} label={'Prioridad'} isRequired={true} element={'priority'} options={options}/>
+            <Select register={register} label={'Prioridad'} isRequired={true} element={'priority'} options={priorities}/>
             {errors.priority && <FormErrorMessage error={errors.priority.message}/>}
           </FormWrapper>
-          {console.log(errors)}
 
         </section>
         
