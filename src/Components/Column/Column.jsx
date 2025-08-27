@@ -22,7 +22,7 @@ export const Column = React.memo(({ column, tasks,activeTask}) => {
       </div>
 
       <div className={styles["card-container"]}>
-        {tasks.map(task => (
+        {tasks?.map(task => (
           <CardDragable key={task.id} 
           task={task} 
           isDragging={activeTask?.id === task.id}

@@ -14,7 +14,7 @@ export const Info = ()=>{
 
     const dispatch = useContext(SetGlobalContext)
     const state = useContext(ValueGlobalContext)
-    const ticket = useContext(ValueTicketsContext)
+    const {ticket} = useContext(ValueTicketsContext)
 
     const handleDeleteTicket = ()=>{
         dispatch({type:'openConfirmModal',payload:'Deseas eliminar el ticket'})

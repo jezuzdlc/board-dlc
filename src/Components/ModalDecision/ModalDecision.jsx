@@ -4,7 +4,6 @@ import styles from "./ModalDecision.module.css";
 import { deleteTicket } from "../../api/tasks";
 import { useContext } from "react";
 import { SetGlobalContext, ValueGlobalContext } from "../../Context/GlobalContext";
-import { ModalMessage } from "../ModalMessage/ModalMessage";
 import {  faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../Button/Button";
@@ -14,8 +13,8 @@ export const ModalDecision = () => {
   
     const dispatch = useContext(SetGlobalContext);
     const state = useContext(ValueGlobalContext);
-    const ticket = useContext(ValueTicketsContext);
-    const setTask = useContext(SetTicketsContext)
+    const {ticket} = useContext(ValueTicketsContext);
+    const {setTicket} = useContext(SetTicketsContext)
 
   const queryClient = useQueryClient();
 
@@ -29,7 +28,7 @@ export const ModalDecision = () => {
       });
     },
     onSuccess: () => {
-        setTask(null)
+        setTicket(null)
         dispatch({ type: "closeModal",payload: { info: "Ticket eliminado correctamente", type: "success" }});
       queryClient.invalidateQueries(["tasks"]);
     },

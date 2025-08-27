@@ -8,19 +8,19 @@ import { SetTicketsContext } from "../../Context/TicketContext";
 
 export const Modal = ({children}) => {
   const dispatch = useContext(SetGlobalContext);
-  const setTask = useContext(SetTicketsContext)
+  const {setTicket} = useContext(SetTicketsContext)
   const {modalMode} = useContext(ValueGlobalContext);
 
   const handleCloseForm = () => {
     //setActiveForm(false);
-    setTask(null)
+    setTicket(null)
     dispatch({type:"closeModal"})
   };
 
   const handleEscPress = useCallback(()=>{
-    setTask(null)
+    setTicket(null)
     dispatch({type:"closeModal"})
-  },[dispatch,setTask])
+  },[dispatch,setTicket])
 
   useKey('Escape',handleEscPress)
 

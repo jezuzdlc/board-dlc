@@ -11,7 +11,7 @@ import { SetTicketsContext } from "../../Context/TicketContext"
 export const Card = React.memo(({ task}) => {
 
   const dispatch = useContext(SetGlobalContext)
-  const setTicket = useContext(SetTicketsContext)
+  const {setTicket} = useContext(SetTicketsContext)
 
 
   const handleSetForm = ()=>{

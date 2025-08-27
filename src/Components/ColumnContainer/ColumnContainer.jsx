@@ -6,7 +6,9 @@ import { fetchTasks, updateStatus } from "../../api/tasks"
 import { fetchStatus } from "../../api/status"
 import {SetGlobalContext} from '../../Context/GlobalContext'
 import { CardDragable } from "../CardDraggable/CardDraggable"
-
+import { ValueTicketsContext } from "../../Context/TicketContext"
+import { Overlay } from "../Overlay/Overlay"
+import { Spinner } from "../Spineer/Spinner"
 
 
 export const ColumnContainer = React.memo(() => {
@@ -14,13 +16,13 @@ export const ColumnContainer = React.memo(() => {
   const [activeTask, setActiveTask] = useState(null);
   const queryClient = useQueryClient();
 
-
-  //const state = useContext(ValueGlobalContext)
   const dispatch = useContext(SetGlobalContext)
+  const {search} = useContext(ValueTicketsContext)
   
   const {data:tasks,isLoading:isTaskLoading,isError:isTaskError,error:taskError} = useQuery({
-    queryFn: ()=>fetchTasks(),
-    queryKey:['tasks']
+    queryFn: ()=>fetchTasks(search),
+    queryKey:['tasks',search],
+    keepPreviousData: true
   })
 
   const {data:status,isLoading:isStatusLoading,isError:isStatusError,error:statusError} = useQuery({
@@ -37,6 +39,7 @@ export const ColumnContainer = React.memo(() => {
   return map;
   }, [tasks, status]);
 
+  //update ticket
   const {mutate:updateStatusMutation} = useMutation({
     mutationFn: updateStatus, 
     onError:(vars)=>{
@@ -51,6 +54,7 @@ export const ColumnContainer = React.memo(() => {
       queryClient.invalidateQueries(['tasks'])
     }
   })
+
 
   const handleDragStart = (event) => {
     //draggable element
@@ -87,7 +91,7 @@ export const ColumnContainer = React.memo(() => {
         const tempObj ={
           id:over.id
         }
-        queryClient.setQueryData(['tasks'],(old)=>{
+        queryClient.setQueryData(['tasks',search],(old)=>{
           return old.map((task)=>task.id==active.id?{...task,status:{...task.status,id:over.id}}:task)
         })
 
@@ -102,8 +106,8 @@ export const ColumnContainer = React.memo(() => {
    //DragOverlay current draggable element 
    
    //TODO: manejar mejor el loading
-   if (isStatusLoading|| isTaskLoading){
-    return <p>loading..</p>
+   if (isStatusLoading){
+    return <Overlay><Spinner/></Overlay>
    }
 
 
@@ -118,6 +122,7 @@ export const ColumnContainer = React.memo(() => {
    }
 
   return (
+    <>
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors} autoScroll={false}>
 
         {status.map((col) => (
@@ -129,10 +134,12 @@ export const ColumnContainer = React.memo(() => {
           tasks={tasksByStatus.get(col.id)}
           />
         ))}
+        {isTaskLoading && (<Overlay><Spinner/></Overlay>)}
 
       <DragOverlay>
         {activeTask ? <CardDragable task={activeTask}/> : null}
       </DragOverlay>
     </DndContext>
+    </>
   )
 })

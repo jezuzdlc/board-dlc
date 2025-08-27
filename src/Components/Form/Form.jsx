@@ -20,8 +20,8 @@ export const Form = () => {
 
   const dispatch = useContext(SetGlobalContext);
   const state = useContext(ValueGlobalContext);
-  const activeTicket = useContext(ValueTicketsContext); 
-  const setTicket = useContext(SetTicketsContext)
+  const {ticket:activeTicket} = useContext(ValueTicketsContext); 
+  const {setTicket} = useContext(SetTicketsContext)
 
   
   const ticketDefaultValues = useCallback(()=>{
@@ -52,7 +52,8 @@ export const Form = () => {
 
   const {data:priorities}= useQuery({
     queryFn:()=>fetchPriorities(),
-    queryKey:['priorities']
+    queryKey:['priorities'],
+    staleTime:Infinity
   })
 
   const {mutate:addTaskMutation} = useMutation({
