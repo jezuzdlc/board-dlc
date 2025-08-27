@@ -8,23 +8,89 @@ import { Input } from "../Input/Input";
 import { FormWrapper } from "../FormWrapper/FormWrapper";
 import { TextArea } from "../TextArea/TextArea";
 import { Select } from "../Select/Select";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchPriorities } from "../../api/priority";
+import { createTask, updateTicket } from "../../api/tasks";
+import { useCallback, useContext, useEffect } from "react";
+import { SetGlobalContext, ValueGlobalContext } from "../../Context/GlobalContext";
+import { SetTicketsContext, ValueTicketsContext } from "../../Context/TicketContext";
 
 export const Form = () => {
- 
-  const {register,handleSubmit,formState:{errors}} = useForm()
+
+
+  const dispatch = useContext(SetGlobalContext);
+  const state = useContext(ValueGlobalContext);
+  const activeTicket = useContext(ValueTicketsContext); 
+  const setTicket = useContext(SetTicketsContext)
+
+  
+  const ticketDefaultValues = useCallback(()=>{
+    let tempObj = null
+    if(activeTicket){
+      tempObj = {
+        name:activeTicket.name,
+        description:activeTicket.description,
+        delivery:formatDateToInput(new Date(activeTicket.delivery)),
+        priority:activeTicket.priority.id
+      }
+    }
+    return tempObj
+  },[activeTicket])
+
+
+
+  const formatDateToInput =(date) =>{
+    return date.toISOString().split("T")[0];
+  }
+
+  const {register,handleSubmit,formState:{errors},reset} = useForm({
+    defaultValues: ticketDefaultValues()||{
+        delivery:formatDateToInput(new Date())
+    }});
+
+  const queryClient = useQueryClient()
 
   const {data:priorities}= useQuery({
     queryFn:()=>fetchPriorities(),
     queryKey:['priorities']
   })
 
-  console.log(priorities);
-  const onSubmit = handleSubmit((data)=>{
-    console.log(data);
-    prompt('se envio la data')
+  const {mutate:addTaskMutation} = useMutation({
+    mutationFn:createTask,
+    onError:(vars)=>{
+      console.log(vars);
+      dispatch({type:"setMessage",payload:{info:'Error al crear ticket',type:'error'}})
+    },
+    onSuccess:()=>{
+      dispatch({type:"closeModal",payload:{info:'Ticket creado correctamente',type:'success'}})
+      queryClient.invalidateQueries(['tasks'])
+    }
   })
+
+  const {mutate:updateTicketMutation} = useMutation({
+    mutationFn:updateTicket,
+    onError:(vars)=>{
+      console.log(vars);
+      dispatch({type:"setMessage",payload:{info:'Error al actualizar ticket',type:'error'}})
+    },
+    onSuccess:()=>{
+      setTicket(null)
+      dispatch({type:'closeModal',payload:{info:'Ticket actualizado correctamente',type:'success'}})
+      queryClient.invalidateQueries(['tasks'])
+    }
+  })
+
+  const onSubmit = handleSubmit((task)=>{
+    if(state.modalMode =='create'){
+      addTaskMutation({task})
+    }
+    if(state.modalMode =='update'){
+      updateTicketMutation({id:activeTicket.id,data:task})
+    }
+  })
+
+  const buttonText = state.modalMode =='create'?'Guardar':'Actualizar';
+
 
   const validateDate = (value)=>{
       const [year,month,day] = value.split("-").map(Number)
@@ -37,16 +103,20 @@ export const Form = () => {
       return true
   }
 
+  useEffect(()=>{
+    if(priorities && activeTicket){
+      reset({...ticketDefaultValues(),priority:activeTicket.priority.id})
+    }
+  },[priorities,reset,activeTicket,ticketDefaultValues])
+
 
   return (
-
-    
+    <>
       <form action="" className={styles.form} onSubmit={onSubmit}>
         <section className={styles.detail}>
-
           <FormWrapper>
-            <Input isRequired={true} element={'title'} register={register} setMinLength={2} setMaxLength={100} label={"Titulo"} type={"text"}/>
-            {errors.title && <FormErrorMessage error={errors.title.message}/>}
+            <Input isRequired={true} element={'name'} register={register} setMinLength={2} setMaxLength={100} label={"Titulo"} type={"text"}/>
+            {errors.name && <FormErrorMessage error={errors.name.message}/>}
           </FormWrapper>
 
           <FormWrapper>
@@ -55,20 +125,22 @@ export const Form = () => {
           </FormWrapper>
 
           <FormWrapper>
-            <Input isRequired={true} label={'Fecha de entrega'} type={'date'} element={'date'} register={register} isDate={true} validate={validateDate}/>
-            {errors.date && <FormErrorMessage error={errors.date.message}/>}
+            <Input isRequired={true} label= {'Fecha de entrega'} type={'date'} element={'delivery'} register={register} isDate={true} validate={validateDate}/>
+            {errors.delivery && <FormErrorMessage error={errors.delivery.message}/>}
           </FormWrapper>
 
           <FormWrapper>
-            <Select register={register} label={'Prioridad'} isRequired={true} element={'priority'} options={priorities}/>
+            <Select register={register} label={'Prioridad'} isRequired={true} element={'priority'} options={priorities} />
             {errors.priority && <FormErrorMessage error={errors.priority.message}/>}
           </FormWrapper>
-
         </section>
         
         <section className={styles["buttons-container"]}>
-          <Button type={"submit"} text={"Guardar"}><FontAwesomeIcon icon={faFloppyDisk}/></Button>
+          <Button type={"submit"} text={buttonText}><FontAwesomeIcon icon={faFloppyDisk}/></Button>
         </section>
       </form>
+
+
+    </>
   );
 };

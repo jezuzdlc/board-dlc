@@ -1,6 +1,7 @@
 import styles from './Select.module.css'
 
 export const Select = ({register,label,element,isRequired=false,options})=>{
+
     return (
         <>
         <label htmlFor={element}>{label}:</label>
@@ -10,6 +11,7 @@ export const Select = ({register,label,element,isRequired=false,options})=>{
                 message:`El campo ${label} es requerido`
                 }:false,
         })}>
+            <option value="">seleccione un valor</option>
             {options?.map((option)=>(
                 <option key={option.id} id={element} value={option.id}>{option.name}</option>
             ))}

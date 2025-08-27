@@ -1,22 +1,26 @@
 import styles from "./Modal.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useContext } from "react";
-import { SetCardsContext, ValueCardsContext } from "../../Context/CardsContext";
+import { SetGlobalContext,ValueGlobalContext } from "../../Context/GlobalContext";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useKey } from "../../hooks/useKey";
+import { SetTicketsContext } from "../../Context/TicketContext";
 
 export const Modal = ({children}) => {
-  const dispatch = useContext(SetCardsContext);
-  const {modalMode} = useContext(ValueCardsContext);
+  const dispatch = useContext(SetGlobalContext);
+  const setTask = useContext(SetTicketsContext)
+  const {modalMode} = useContext(ValueGlobalContext);
 
   const handleCloseForm = () => {
     //setActiveForm(false);
+    setTask(null)
     dispatch({type:"closeModal"})
   };
 
   const handleEscPress = useCallback(()=>{
+    setTask(null)
     dispatch({type:"closeModal"})
-  },[dispatch])
+  },[dispatch,setTask])
 
   useKey('Escape',handleEscPress)
 
@@ -26,9 +30,9 @@ export const Modal = ({children}) => {
 
       <div className={styles.header}>
         <h2>
-          {modalMode=='view' && 'Información de la tarea'}
-          {modalMode=='create' && 'Crear tarea'}
-          {modalMode=='edit' && 'Actualizar tarea'}
+          {modalMode=='view' && 'Información de la ticket'}
+          {modalMode=='create' && 'Crear ticket'}
+          {modalMode=='update' && 'Actualizar ticket'}
         </h2>
         <div className={styles.close} onClick={handleCloseForm}>
           <FontAwesomeIcon icon={faXmark} size="lg" />

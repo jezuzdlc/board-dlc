@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './ModalMessage.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { SetGlobalContext } from '../../Context/GlobalContext';
 
-export const ModalMessage = ({message,onClose,type})=>{
+export const ModalMessage = ({message,type})=>{
       const [desapareciendo, setDesapareciendo] = useState(false);
+      const dispatch = useContext(SetGlobalContext);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setDesapareciendo(true); // Inicia la animación de salida
-      setTimeout(onClose, 500); // Espera a que termine la animación
+      setTimeout(dispatch({type:'clearMessage'}), 500); // Espera a que termine la animación
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [onClose]);
+  }, [dispatch]);
 
 
     return (
@@ -26,6 +28,12 @@ export const ModalMessage = ({message,onClose,type})=>{
       )}
       {type=='success' &&(
         <div className={`${styles.message} ${styles.success} ${desapareciendo ? styles['fade-out'] : styles['fade-in']}`}>
+            <FontAwesomeIcon icon={faCheck} size='1x'/>
+            <p>{message}</p>
+        </div>
+      )}
+      {type=='updated' &&(
+        <div className={`${styles.message} ${styles.updated} ${desapareciendo ? styles['fade-out'] : styles['fade-in']}`}>
             <FontAwesomeIcon icon={faCheck} size='1x'/>
             <p>{message}</p>
         </div>

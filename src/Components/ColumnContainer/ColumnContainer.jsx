@@ -1,40 +1,50 @@
-import React, { useState } from "react"
+import React, { useContext, useMemo, useState } from "react"
 import { DndContext, DragOverlay ,PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
 import { Column } from "../Column/Column"
-import { COLUMNS } from "../../utils/constants"
-import { Card } from "../Card/Card"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { fetchTasks, updateStatus } from "../../api/tasks"
-import { ModalMessage } from "../ModalMessage/ModalMessage"
 import { fetchStatus } from "../../api/status"
+import {SetGlobalContext} from '../../Context/GlobalContext'
+import { CardDragable } from "../CardDraggable/CardDraggable"
 
 
 
 export const ColumnContainer = React.memo(() => {
-  //active task setted by handleDragStart for DragOverlay 
-  const [activeTask, setActiveTask] = useState(null)
-  const queryClient = useQueryClient()
 
-  const [message,setMessage] = useState(null);
+  const [activeTask, setActiveTask] = useState(null);
+  const queryClient = useQueryClient();
+
+
+  //const state = useContext(ValueGlobalContext)
+  const dispatch = useContext(SetGlobalContext)
   
-  const {data:tasks,isLoading,isError,error} = useQuery({
+  const {data:tasks,isLoading:isTaskLoading,isError:isTaskError,error:taskError} = useQuery({
     queryFn: ()=>fetchTasks(),
     queryKey:['tasks']
   })
 
-  const {data:status2} = useQuery({
+  const {data:status,isLoading:isStatusLoading,isError:isStatusError,error:statusError} = useQuery({
     queryFn:()=> fetchStatus(),
     queryKey:['status'],
+    staleTime:Infinity
   })
 
-  const {mutate:addTaskMutation} = useMutation({
+  const tasksByStatus = useMemo(() => {
+    const map = new Map();
+    status?.forEach(s => {
+    map.set(s.id, tasks?.filter(t => t.status.id === s.id));
+  });
+  return map;
+  }, [tasks, status]);
+
+  const {mutate:updateStatusMutation} = useMutation({
     mutationFn: updateStatus, 
     onError:(vars)=>{
       console.log(vars);
-      setMessage({info:'Error al actualizar status de tarjeta',type:'error'})
+      dispatch({type:"setMessage",payload:{info:'Error al actualizar status de tarjeta',type:'error'}})
     },
     onSuccess:()=>{
-      setMessage({info:'Estatus de tarjeta actualizado',type:'success'})
+      dispatch({type:"setMessage",payload:{info:'Estatus actualizado',type:'updated'}})
       queryClient.invalidateQueries(['tasks'])
     },
     onSettled:()=>{
@@ -47,7 +57,7 @@ export const ColumnContainer = React.memo(() => {
     const { active } = event
     const dragged = tasks.find(t => t.id === active.id)
     setActiveTask(dragged)
-    setMessage(null)
+    dispatch({type:'clearMessage'})
   }
 
 
@@ -75,13 +85,13 @@ export const ColumnContainer = React.memo(() => {
     if(over.id !== active.data.current.statusId){ 
       try{
         const tempObj ={
-          name:over.id
+          id:over.id
         }
         queryClient.setQueryData(['tasks'],(old)=>{
-          return old.map((task)=>task.id==active.id?{...task,status:{...task.status,name:over.id}}:task)
+          return old.map((task)=>task.id==active.id?{...task,status:{...task.status,id:over.id}}:task)
         })
 
-         addTaskMutation({id:active.id,data:tempObj})
+         updateStatusMutation({id:active.id,data:tempObj})
       }catch(e){
           console.log(e);
       }
@@ -92,37 +102,36 @@ export const ColumnContainer = React.memo(() => {
    //DragOverlay current draggable element 
    
    //TODO: manejar mejor el loading
-   if (isLoading){
+   if (isStatusLoading|| isTaskLoading){
     return <p>loading..</p>
    }
 
 
    //TODO: manejar bien error
-   if(isError){
-    return <p>{error.message}</p>
+   if(isStatusError){
+    return <p>{statusError.message}</p>
    }
 
+      //TODO: manejar bien error
+   if(isTaskError){
+    return <p>{taskError.message}</p>
+   }
 
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors} autoScroll={false}>
-      <>
-      {console.log(status2)}
-        {COLUMNS.map((col) => (
+
+        {status.map((col) => (
           <Column
-          key={col.statusId}
+          key={col.id}
           column={col}
           activeTask={activeTask}
-          tasks={tasks.filter(task => task.status.name === col.statusId)}
+          //tasks={tasks.filter(task => task.status.id === col.id)}
+          tasks={tasksByStatus.get(col.id)}
           />
         ))}
 
-        {message && (<ModalMessage message={message.info} onClose={()=>setMessage(null)} type={message.type}/>)}
-      </>
-
-    
-       
       <DragOverlay>
-        {activeTask ? <Card task={activeTask} /> : null}
+        {activeTask ? <CardDragable task={activeTask}/> : null}
       </DragOverlay>
     </DndContext>
   )

@@ -12,6 +12,7 @@
     min-width: 235px;
     width: auto;
     max-width: 400px;
+    z-index: 2000;
 }
 
 .error{
@@ -20,6 +21,10 @@
 
 .success{
   background-color: rgb(15, 184, 77);
+}
+
+.updated{
+  background-color: rgb(43, 104, 225);
 }
 
 

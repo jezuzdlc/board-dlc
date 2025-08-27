@@ -4,11 +4,11 @@ import {Button} from '../../Components/Button/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useKey } from '../../hooks/useKey'
-import { SetCardsContext } from '../../Context/CardsContext'
+import { SetGlobalContext } from '../../Context/GlobalContext'
 
 export const Nav = ()=>{
 
-    const dispatch = useContext(SetCardsContext)
+    const dispatch = useContext(SetGlobalContext)
 
     const [query,setQuery] = useState("")
     const inpEl = useRef(null)
