@@ -17,8 +17,6 @@ export const Nav = ()=>{
     const debounced = useDebounce(text)
 
     useEffect(()=>{
-        console.log(debounced);
-        console.log('entr a');
         setSearch(debounced)
     },[debounced,setSearch])
 
@@ -38,6 +36,7 @@ export const Nav = ()=>{
         if(document.activeElement == inpEl.current){
             inpEl.current.blur()
             setSearch("")
+            setText("")
         }
     },[setSearch])
 

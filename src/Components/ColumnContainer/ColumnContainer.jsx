@@ -19,10 +19,9 @@ export const ColumnContainer = React.memo(() => {
   const dispatch = useContext(SetGlobalContext)
   const {search} = useContext(ValueTicketsContext)
   
-  const {data:tasks,isLoading:isTaskLoading,isError:isTaskError,error:taskError} = useQuery({
+  const {data:tasks,isLoading:isTaskLoading,isFetching,isError:isTaskError,error:taskError} = useQuery({
     queryFn: ()=>fetchTasks(search),
     queryKey:['tasks',search],
-    keepPreviousData: true
   })
 
   const {data:status,isLoading:isStatusLoading,isError:isStatusError,error:statusError} = useQuery({
@@ -47,11 +46,8 @@ export const ColumnContainer = React.memo(() => {
       dispatch({type:"setMessage",payload:{info:'Error al actualizar status de tarjeta',type:'error'}})
     },
     onSuccess:()=>{
+      queryClient.invalidateQueries(['tasks',search])
       dispatch({type:"setMessage",payload:{info:'Estatus actualizado',type:'updated'}})
-      queryClient.invalidateQueries(['tasks'])
-    },
-    onSettled:()=>{
-      queryClient.invalidateQueries(['tasks'])
     }
   })
 
@@ -110,7 +106,6 @@ export const ColumnContainer = React.memo(() => {
     return <Overlay><Spinner/></Overlay>
    }
 
-
    //TODO: manejar bien error
    if(isStatusError){
     return <p>{statusError.message}</p>
@@ -134,7 +129,8 @@ export const ColumnContainer = React.memo(() => {
           tasks={tasksByStatus.get(col.id)}
           />
         ))}
-        {isTaskLoading && (<Overlay><Spinner/></Overlay>)}
+        {isTaskLoading || isFetching ? (<Overlay><Spinner/></Overlay>):null}
+    
 
       <DragOverlay>
         {activeTask ? <CardDragable task={activeTask}/> : null}
