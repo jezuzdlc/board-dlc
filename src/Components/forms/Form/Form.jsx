@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "../Button/Button";
+import { Button } from "../../common/Button/Button";
 import styles from "./Form.module.css";
 import { useForm } from "react-hook-form";
 import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
@@ -9,11 +9,11 @@ import { FormWrapper } from "../FormWrapper/FormWrapper";
 import { TextArea } from "../TextArea/TextArea";
 import { Select } from "../Select/Select";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchPriorities } from "../../api/priority";
-import { createTask, updateTicket } from "../../api/tasks";
+import { fetchPriorities } from "../../../api/priority";
+import { createTicket, updateTicket } from "../../../api/tickets";
 import { useCallback, useContext, useEffect } from "react";
-import { SetGlobalContext, ValueGlobalContext } from "../../Context/GlobalContext";
-import { SetTicketsContext, ValueTicketsContext } from "../../Context/TicketContext";
+import { SetGlobalContext, ValueGlobalContext } from "../../../Context/GlobalContext";
+import { SetTicketsContext, ValueTicketsContext } from "../../../Context/TicketContext";
 
 export const Form = () => {
 
@@ -56,15 +56,15 @@ export const Form = () => {
     staleTime:Infinity
   })
 
-  const {mutate:addTaskMutation} = useMutation({
-    mutationFn:createTask,
+  const {mutate:addTicketMutation} = useMutation({
+    mutationFn:createTicket,
     onError:(vars)=>{
       console.log(vars);
       dispatch({type:"setMessage",payload:{info:'Error al crear ticket',type:'error'}})
     },
     onSuccess:()=>{
       dispatch({type:"closeModal",payload:{info:'Ticket creado correctamente',type:'success'}})
-      queryClient.invalidateQueries(['tasks'])
+      queryClient.invalidateQueries({ queryKey: ["tickets"]})
     }
   })
 
@@ -77,16 +77,17 @@ export const Form = () => {
     onSuccess:()=>{
       setTicket(null)
       dispatch({type:'closeModal',payload:{info:'Ticket actualizado correctamente',type:'success'}})
-      queryClient.invalidateQueries(['tasks'])
+      queryClient.invalidateQueries({ queryKey: ["tickets"]})
     }
   })
 
-  const onSubmit = handleSubmit((task)=>{
+  const onSubmit = handleSubmit((ticket)=>{
+    console.log(ticket);
     if(state.modalMode =='create'){
-      addTaskMutation({task})
+      addTicketMutation({ticket})
     }
     if(state.modalMode =='update'){
-      updateTicketMutation({id:activeTicket.id,data:task})
+      updateTicketMutation({id:activeTicket.id,data:ticket})
     }
   })
 

@@ -1,10 +1,10 @@
 import styles from "./Modal.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useContext } from "react";
-import { SetGlobalContext,ValueGlobalContext } from "../../Context/GlobalContext";
+import { SetGlobalContext,ValueGlobalContext } from "../../../Context/GlobalContext";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useKey } from "../../hooks/useKey";
-import { SetTicketsContext } from "../../Context/TicketContext";
+import { useKey } from "../../../hooks/useKey";
+import { SetTicketsContext } from "../../../Context/TicketContext";
 
 export const Modal = ({children}) => {
   const dispatch = useContext(SetGlobalContext);

@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Overlay } from "../Overlay/Overlay";
 import styles from "./ModalDecision.module.css";
-import { deleteTicket } from "../../api/tasks";
+import { deleteTicket } from "../../../api/tickets";
 import { useContext } from "react";
-import { SetGlobalContext, ValueGlobalContext } from "../../Context/GlobalContext";
+import { SetGlobalContext, ValueGlobalContext } from "../../../Context/GlobalContext";
 import {  faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../Button/Button";
-import { SetTicketsContext, ValueTicketsContext } from "../../Context/TicketContext";
+import { SetTicketsContext, ValueTicketsContext } from "../../../Context/TicketContext";
 
 export const ModalDecision = () => {
   
@@ -30,7 +30,7 @@ export const ModalDecision = () => {
     onSuccess: () => {
         setTicket(null)
         dispatch({ type: "closeModal",payload: { info: "Ticket eliminado correctamente", type: "success" }});
-      queryClient.invalidateQueries(["tasks"]);
+        queryClient.invalidateQueries({ queryKey: ["tickets"]});
     },
   });
 

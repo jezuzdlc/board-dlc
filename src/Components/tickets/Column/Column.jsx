@@ -4,7 +4,7 @@ import styles from './Column.module.css'
 import React from "react"
 import { CardDragable } from "../CardDraggable/CardDraggable";
 
-export const Column = React.memo(({ column, tasks,activeTask}) => {
+export const Column = React.memo(({ column, tickets,activeTicket}) => {
   const tagLower = "title-"+column.name.toLowerCase()
   const { setNodeRef } = useDroppable({
     id: column.id,
@@ -22,10 +22,11 @@ export const Column = React.memo(({ column, tasks,activeTask}) => {
       </div>
 
       <div className={styles["card-container"]}>
-        {tasks?.map(task => (
-          <CardDragable key={task.id} 
-          task={task} 
-          isDragging={activeTask?.id === task.id}
+        {tickets?.map(ticket => (
+          <CardDragable 
+          key={ticket.id} 
+          ticket={ticket} 
+          isDragging={activeTicket?.id === ticket.id}
           />
         ))}
       </div>

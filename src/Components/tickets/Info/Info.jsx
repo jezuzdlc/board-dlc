@@ -1,14 +1,14 @@
 import { useContext } from "react"
-import { ValueTicketsContext } from "../../Context/TicketContext"
-import {formatDate} from "../../utils/functions"
+import { ValueTicketsContext } from "../../../Context/TicketContext"
+import {formatDate} from "../../../utils/functions"
 import { Detail } from "../Detail/Detail"
-import { Badge } from "../Badge/Badge"
-import { Button } from "../Button/Button"
+import { Badge } from "../../common/Badge/Badge"
+import { Button } from "../../common/Button/Button"
 import styles from './Info.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons"
-import { SetGlobalContext, ValueGlobalContext } from "../../Context/GlobalContext"
-import { ModalDecision } from "../ModalDecision/ModalDecision"
+import { SetGlobalContext, ValueGlobalContext } from "../../../Context/GlobalContext"
+import { ModalDecision } from "../../common/ModalDecision/ModalDecision"
 
 export const Info = ()=>{
 

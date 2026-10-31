@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './ModalMessage.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
-import { SetGlobalContext } from '../../Context/GlobalContext';
+import { SetGlobalContext } from '../../../Context/GlobalContext';
 
 export const ModalMessage = ({message,type})=>{
       const [desapareciendo, setDesapareciendo] = useState(false);

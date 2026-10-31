@@ -2,12 +2,12 @@ import { useDraggable } from "@dnd-kit/core"
 import styles from "./CardDraggable.module.css"
 import { Card } from "../Card/Card"
 
-export const CardDragable = ({ task,isDragging}) => {
+export const CardDragable = ({ ticket,isDragging}) => {
 
   const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({
-    id: task.id,
+    id: ticket.id,
     data:{
-      statusId:task.status.id
+      statusId:ticket.status.id
     }
   })
 
@@ -25,7 +25,7 @@ export const CardDragable = ({ task,isDragging}) => {
       {...listeners}
       className={styles.card}
     >
-        <Card task={task}/>
+        <Card ticket={ticket}/>
     </div>
   )
 }

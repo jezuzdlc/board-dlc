@@ -1,12 +1,12 @@
 import styles from './Nav.module.css'
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import {Button} from '../../Components/Button/Button'
+import {Button} from '../../common/Button/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useKey } from '../../hooks/useKey'
-import { SetGlobalContext } from '../../Context/GlobalContext'
-import { SetTicketsContext, ValueTicketsContext } from '../../Context/TicketContext'
-import { useDebounce } from '../../hooks/useDebounce'
+import { useKey } from '../../../hooks/useKey'
+import { SetGlobalContext } from '../../../Context/GlobalContext'
+import { SetTicketsContext, ValueTicketsContext } from '../../../Context/TicketContext'
+import { useDebounce } from '../../../hooks/useDebounce'
 
 export const Nav = ()=>{
 

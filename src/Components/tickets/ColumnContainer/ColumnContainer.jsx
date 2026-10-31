@@ -2,26 +2,26 @@ import React, { useContext, useMemo, useState } from "react"
 import { DndContext, DragOverlay ,PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
 import { Column } from "../Column/Column"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { fetchTasks, updateStatus } from "../../api/tasks"
-import { fetchStatus } from "../../api/status"
-import {SetGlobalContext} from '../../Context/GlobalContext'
+import { fetchTickets, updateStatus } from "../../../api/tickets"
+import { fetchStatus } from "../../../api/status"
+import {SetGlobalContext} from '../../../Context/GlobalContext'
 import { CardDragable } from "../CardDraggable/CardDraggable"
-import { ValueTicketsContext } from "../../Context/TicketContext"
-import { Overlay } from "../Overlay/Overlay"
-import { Spinner } from "../Spineer/Spinner"
+import { ValueTicketsContext } from "../../../Context/TicketContext"
+import { Overlay } from "../../common/Overlay/Overlay"
+import { Spinner } from "../../common/Spineer/Spinner"
 
 
 export const ColumnContainer = React.memo(() => {
 
-  const [activeTask, setActiveTask] = useState(null);
+  const [activeTicket, setActiveTicket] = useState(null);
   const queryClient = useQueryClient();
 
   const dispatch = useContext(SetGlobalContext)
   const {search} = useContext(ValueTicketsContext)
   
-  const {data:tasks,isLoading:isTaskLoading,isFetching,isError:isTaskError,error:taskError} = useQuery({
-    queryFn: ()=>fetchTasks(search),
-    queryKey:['tasks',search],
+  const {data:tickets,isLoading:isTicketLoading,isFetching,isError:isTicketError,error:ticketError} = useQuery({
+    queryFn: ()=>fetchTickets(search),
+    queryKey:['tickets',search],
   })
 
   const {data:status,isLoading:isStatusLoading,isError:isStatusError,error:statusError} = useQuery({
@@ -30,13 +30,13 @@ export const ColumnContainer = React.memo(() => {
     staleTime:Infinity
   })
 
-  const tasksByStatus = useMemo(() => {
+  const ticketsByStatus = useMemo(() => {
     const map = new Map();
     status?.forEach(s => {
-    map.set(s.id, tasks?.filter(t => t.status.id === s.id));
+    map.set(s.id, tickets?.filter(t => t.status.id === s.id));
   });
   return map;
-  }, [tasks, status]);
+  }, [tickets, status]);
 
   //update ticket
   const {mutate:updateStatusMutation} = useMutation({
@@ -46,7 +46,7 @@ export const ColumnContainer = React.memo(() => {
       dispatch({type:"setMessage",payload:{info:'Error al actualizar status de tarjeta',type:'error'}})
     },
     onSuccess:()=>{
-      queryClient.invalidateQueries(['tasks',search])
+      queryClient.invalidateQueries(['tickets',search])
       dispatch({type:"setMessage",payload:{info:'Estatus actualizado',type:'updated'}})
     }
   })
@@ -55,8 +55,8 @@ export const ColumnContainer = React.memo(() => {
   const handleDragStart = (event) => {
     //draggable element
     const { active } = event
-    const dragged = tasks.find(t => t.id === active.id)
-    setActiveTask(dragged)
+    const dragged = tickets.find(t => t.id === active.id)
+    setActiveTicket(dragged)
     dispatch({type:'clearMessage'})
   }
 
@@ -75,7 +75,7 @@ export const ColumnContainer = React.memo(() => {
     const { active, over } = event
     //if card is not over a droppable area, return 
     if (!over) {
-      setActiveTask(null)
+      setActiveTicket(null)
       return
     }
 
@@ -87,8 +87,8 @@ export const ColumnContainer = React.memo(() => {
         const tempObj ={
           id:over.id
         }
-        queryClient.setQueryData(['tasks',search],(old)=>{
-          return old.map((task)=>task.id==active.id?{...task,status:{...task.status,id:over.id}}:task)
+        queryClient.setQueryData(['tickets',search],(old)=>{
+          return old.map((ticket)=>ticket.id==active.id?{...ticket,status:{...ticket.status,id:over.id}}:ticket)
         })
 
          updateStatusMutation({id:active.id,data:tempObj})
@@ -96,7 +96,7 @@ export const ColumnContainer = React.memo(() => {
           console.log(e);
       }
     }
-    setActiveTask(null)
+    setActiveTicket(null)
   }
 
    //DragOverlay current draggable element 
@@ -112,8 +112,8 @@ export const ColumnContainer = React.memo(() => {
    }
 
       //TODO: manejar bien error
-   if(isTaskError){
-    return <p>{taskError.message}</p>
+   if(isTicketError){
+    return <p>{ticketError.message}</p>
    }
 
   return (
@@ -124,16 +124,16 @@ export const ColumnContainer = React.memo(() => {
           <Column
           key={col.id}
           column={col}
-          activeTask={activeTask}
-          //tasks={tasks.filter(task => task.status.id === col.id)}
-          tasks={tasksByStatus.get(col.id)}
+          activeTicket={activeTicket}
+          //tickets={tickets.filter(ticket => ticket.status.id === col.id)}
+          tickets={ticketsByStatus.get(col.id)}
           />
         ))}
-        {isTaskLoading || isFetching ? (<Overlay><Spinner/></Overlay>):null}
+        {isTicketLoading || isFetching ? (<Overlay><Spinner/></Overlay>):null}
     
 
       <DragOverlay>
-        {activeTask ? <CardDragable task={activeTask}/> : null}
+        {activeTicket ? <CardDragable ticket={activeTicket}/> : null}
       </DragOverlay>
     </DndContext>
     </>

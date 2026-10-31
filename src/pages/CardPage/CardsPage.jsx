@@ -1,12 +1,12 @@
 import React, { useContext } from "react"
-import { ColumnContainer } from "../../Components/ColumnContainer/ColumnContainer"
+import { ColumnContainer } from "../../Components/tickets/ColumnContainer/ColumnContainer"
 import styles from './CardsPage.module.css'
 import { ValueGlobalContext } from "../../Context/GlobalContext"
-import { Modal } from "../../Components/Modal/Modal"
-import { Overlay } from "../../Components/Overlay/Overlay"
-import { Info } from "../../Components/Info/Info"
-import { Form } from "../../Components/Form/Form"
-import { ModalMessage } from "../../Components/ModalMessage/ModalMessage"
+import { Modal } from "../../Components/common/Modal/Modal"
+import { Overlay } from "../../Components/common/Overlay/Overlay"
+import { Info } from "../../Components/tickets/Info/Info"
+import { Form } from "../../Components/forms/Form/Form"
+import { ModalMessage } from "../../Components/common/ModalMessage/ModalMessage"
 
 
 export const CardsPage = React.memo(() => {
